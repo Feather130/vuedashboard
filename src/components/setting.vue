@@ -5,9 +5,14 @@
       shape="circle"
       icon="plus"
       @click="() => visible = true"
-      v-show="isDraggable&&isResizable"
+      v-show="this.$store.state.layout.isDraggable&&this.$store.state.layout.isResizable"
     ></a-button>
-    <a-button size="small" shape="circle" icon="lock" @click="isLock"></a-button>
+    <a-button
+      size="small"
+      shape="circle"
+      icon="lock"
+      @click="isLock(!this.$store.state.layout.isDraggable)"
+    ></a-button>
     <a-modal
       title="添加小部件"
       centered
@@ -43,16 +48,10 @@
 
 
 <script>
+import { mapMutations } from "vuex";
 export default {
-  props: {
-    layout: Array,
-    isDraggable: Boolean,
-    isResizable: Boolean
-  },
   data() {
     return {
-      isDraggable1: this.isDraggable,
-      isResizable1: this.isResizable,
       visible: false,
       list: window.componentList,
       selectItem: null,
@@ -60,12 +59,9 @@ export default {
     };
   },
   methods: {
-    isLock: function() {
-      this.$emit("isLock", {
-        isDraggable: !this.isDraggable,
-        isResizable: !this.isResizable
-      });
-    },
+    ...mapMutations({
+      isLock: "setLock"
+    }),
     filterOption(input, option) {
       return (
         option.componentOptions.children[0].text
@@ -82,14 +78,7 @@ export default {
       }
     },
     add: function() {
-      this.layout.push({
-        x: 0,
-        y: 0,
-        w: 10,
-        h: 2,
-        i: this.layout.length + 1,
-        name: this.selectItem
-      });
+      this.$store.commit("setLatout", this.selectItem);
       this.visible = false;
     }
   }

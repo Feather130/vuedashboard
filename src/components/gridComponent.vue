@@ -6,13 +6,13 @@
         shape="circle"
         icon="close"
         @click="close"
-        v-show="isDraggable&&isResizable"
+        v-show="this.$store.state.layout.isDraggable&&this.$store.state.layout.isResizable"
       ></a-button>
       <a-button
         size="small"
         shape="circle"
         icon="setting"
-        v-show="isDraggable&&isResizable"
+        v-show="this.$store.state.layout.isDraggable&&this.$store.state.layout.isResizable"
       ></a-button>
     </div>
     <component :is="layout.name" :isConfig="isConfig"></component>
@@ -34,8 +34,8 @@ export default {
   props: {
     layout: Object,
     index: Number,
-    isDraggable: Boolean,
-    isResizable: Boolean
+    // isDraggable: Boolean,
+    // isResizable: Boolean
   },
   data() {
     return {

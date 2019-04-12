@@ -1,17 +1,17 @@
 <template>
   <grid-layout
-    :layout.sync="layout"
+    :layout.sync="this.$store.state.layout.layout"
     :col-num="100"
     :row-height="30"
-    :is-draggable="isDraggable"
-    :is-resizable="isResizable"
+    :is-draggable="this.$store.state.layout.isDraggable"
+    :is-resizable="this.$store.state.layout.isResizable"
     :is-mirrored="false"
     :vertical-compact="true"
     :margin="[0, 0]"
     :use-css-transforms="true"
   >
     <grid-item
-      v-for="(item,index) in layout"
+      v-for="(item,index) in this.$store.state.layout.layout"
       :x="item.x"
       :y="item.y"
       :w="item.w"
@@ -23,7 +23,7 @@
       :maxH="item.maxH"
       :key="item.i"
     >
-      <gridComponent :isDraggable="isDraggable" :isResizable="isResizable" :layout="item" :index="index" @close="close"/>
+      <gridComponent :layout="item" :index="index" @close="close"/>
     </grid-item>
   </grid-layout>
 </template>
@@ -32,11 +32,6 @@
 import VueGridLayout from "vue-grid-layout";
 import gridComponent from "./gridComponent";
 export default {
-  props: {
-    layout: Array,
-    isDraggable: Boolean,
-    isResizable: Boolean
-  },
   components: {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
@@ -44,7 +39,7 @@ export default {
   },
   methods:{
     close:function(val){
-      this.layout.splice(val,1)
+      // this.layout.splice(val,1)
     }
   }
 };

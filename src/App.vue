@@ -1,24 +1,19 @@
 <template>
   <div id="app">
-    <setting
-      :layout="layout"
-      :isDraggable="isDraggable"
-      :isResizable="isResizable"
-      @isLock="isLock"
-    />
-    <layout :layout="layout" :isDraggable="isDraggable" :isResizable="isResizable"/>
+    <setting/>
+    <!-- <layout/> -->
   </div>
 </template>
 
 <script>
 import setting from "./components/setting";
-import layout from "./components/layout";
+// import layout from "./components/layout";
 
 export default {
   name: "app",
   components: {
     setting,
-    layout
+    // layout
   },
   mounted() {
     this.$inventory
@@ -32,29 +27,25 @@ export default {
               "dashboard!name!home": {}
             })
             .then(detail => {
-              this.id = detail.id;
+              this.$store.commit("setDashboardId", detail.id);
             });
         } else {
-          this.id = list.managedObjects[0].id;
+          this.$store.commit(
+            "layout/setDashboardId",
+            list.managedObjects[0].id
+          );
         }
       });
   },
-  data() {
-    return {
-      layout: [],
-      isDraggable: true,
-      isResizable: true,
-      id: null
-    };
-  },
   methods: {
-    isLock: function(val) {
-      this.isDraggable = val.isDraggable;
-      this.isResizable = val.isResizable;
-      this.$message.success(
-        val.isResizable && val.isDraggable ? "编辑已解锁" : "编辑已锁定"
-      );
-    }
+    // isLock: function(val) {
+      // this.$store.commit("setLock", detail.id);
+    // this.isDraggable = val.isDraggable;
+    // this.isResizable = val.isResizable;
+    // this.$message.success(
+    //   val.isResizable && val.isDraggable ? "编辑已解锁" : "编辑已锁定"
+    // );
+    // }
   }
 };
 </script>
