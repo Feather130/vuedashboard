@@ -5,15 +5,10 @@
         size="small"
         shape="circle"
         icon="close"
-        @click="close"
-        v-show="this.$store.state.layout.isDraggable&&this.$store.state.layout.isResizable"
+        @click="close(index)"
+        v-show="this.$store.state.layout.isLock"
       ></a-button>
-      <a-button
-        size="small"
-        shape="circle"
-        icon="setting"
-        v-show="this.$store.state.layout.isDraggable&&this.$store.state.layout.isResizable"
-      ></a-button>
+      <a-button size="small" shape="circle" icon="setting" v-show="this.$store.state.layout.isLock"></a-button>
     </div>
     <component :is="layout.name" :isConfig="isConfig"></component>
   </div>
@@ -30,12 +25,12 @@
 </style>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   props: {
     layout: Object,
-    index: Number,
-    // isDraggable: Boolean,
-    // isResizable: Boolean
+    index: Number
   },
   data() {
     return {
@@ -43,9 +38,9 @@ export default {
     };
   },
   methods: {
-    close: function() {
-      this.$emit("close", this.index);
-    }
+    ...mapMutations({
+      close: "layout/delLayout"
+    })
   }
 };
 </script>

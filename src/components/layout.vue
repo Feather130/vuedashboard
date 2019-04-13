@@ -3,8 +3,8 @@
     :layout.sync="this.$store.state.layout.layout"
     :col-num="100"
     :row-height="30"
-    :is-draggable="this.$store.state.layout.isDraggable"
-    :is-resizable="this.$store.state.layout.isResizable"
+    :is-draggable="this.$store.state.layout.isLock"
+    :is-resizable="this.$store.state.layout.isLock"
     :is-mirrored="false"
     :vertical-compact="true"
     :margin="[0, 0]"
@@ -23,7 +23,7 @@
       :maxH="item.maxH"
       :key="item.i"
     >
-      <gridComponent :layout="item" :index="index" @close="close"/>
+      <gridComponent :layout="item" :index="index"/>
     </grid-item>
   </grid-layout>
 </template>
@@ -36,11 +36,6 @@ export default {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
     gridComponent
-  },
-  methods:{
-    close:function(val){
-      // this.layout.splice(val,1)
-    }
   }
 };
 </script>

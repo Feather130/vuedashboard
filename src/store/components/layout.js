@@ -1,8 +1,7 @@
 const state = {
   layout: [],
-  isDraggable: true,
-  isResizable: true,
-  dashboardId: null,
+  isLock: true,
+  dashboardId: null
 };
 
 const mutations = {
@@ -10,23 +9,25 @@ const mutations = {
     state.dashboardId = id;
   },
   setLock(state, value) {
-    state.isDraggable = value;
-    state.isResizable = value;
+    state.isLock = value;
   },
-  setLatout(state, name) {
+  addLayout(state, name) {
     state.layout.push({
-        x: 0,
-        y: 0,
-        w: 10,
-        h: 2,
-        i: state.layout.length + 1,
-        name
+      x: 0,
+      y: 0,
+      w: 10,
+      h: 2,
+      i: state.layout.length + 1,
+      name
     });
   },
+  delLayout(state, index) {
+    state.layout.splice(index, 1);
+  }
 };
 
 export default {
   namespaced: true,
   state,
-  mutations,
+  mutations
 };

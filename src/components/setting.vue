@@ -5,19 +5,20 @@
       shape="circle"
       icon="plus"
       @click="() => visible = true"
-      v-show="this.$store.state.layout.isDraggable&&this.$store.state.layout.isResizable"
+      v-show="this.$store.state.layout.isLock"
     ></a-button>
     <a-button
       size="small"
       shape="circle"
       icon="lock"
-      @click="isLock(!this.$store.state.layout.isDraggable)"
+      @click="isLock"
     ></a-button>
     <a-modal
       title="添加小部件"
       centered
       v-model="visible"
       @ok="add"
+      @cancel="cancel"
       :destroyOnClose="true"
       :maskClosable="false"
       :okButtonProps="{ props: {disabled: selectItem===null?true:false} }"
@@ -48,7 +49,6 @@
 
 
 <script>
-import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -59,9 +59,6 @@ export default {
     };
   },
   methods: {
-    ...mapMutations({
-      isLock: "setLock"
-    }),
     filterOption(input, option) {
       return (
         option.componentOptions.children[0].text
@@ -78,8 +75,20 @@ export default {
       }
     },
     add: function() {
-      this.$store.commit("setLatout", this.selectItem);
+      this.$store.commit("layout/addLayout", this.selectItem);
       this.visible = false;
+      this.selectItem = null;
+      this.configSelect = null;
+    },
+    cancel: function() {
+      this.selectItem = null;
+      this.configSelect = null;
+    },
+    isLock: function() {
+      this.$store.commit("layout/setLock", !this.$store.state.layout.isLock);
+      this.$message.success(
+        this.$store.state.layout.isLock ? "编辑已解锁" : "编辑已锁定"
+      );
     }
   }
 };
