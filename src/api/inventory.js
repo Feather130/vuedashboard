@@ -1,12 +1,12 @@
-import { get, post, put } from "./index";
+import { get, post, put } from './basic';
 
-let path = "/inventory/managedObjects";
-let NAMESPACE = "application/vnd.com.nsn.cumulocity.";
+let path = '/inventory/managedObjects';
+let NAMESPACE = 'application/vnd.com.nsn.cumulocity.';
 let config = {
   headers: {
-    "Content-Type": `${NAMESPACE}managedObject+json`,
-    Accept: `${NAMESPACE}managedObject+json`
-  }
+    'Content-Type': `${NAMESPACE}managedObject+json`,
+    Accept: `${NAMESPACE}managedObject+json`,
+  },
 };
 
 function buildDetailUrl(mo) {
@@ -33,7 +33,7 @@ function update(mo) {
 let inventory = {
   list,
   create,
-  update
+  update,
 };
 
-export { inventory };
+export default inventory;

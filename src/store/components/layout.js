@@ -1,7 +1,6 @@
 const state = {
   layout: [],
-  isDraggable: true,
-  isResizable: true,
+  isLock: true,
   dashboardId: null,
 };
 
@@ -10,8 +9,7 @@ const mutations = {
     state.dashboardId = id;
   },
   setLock(state, value) {
-    state.isDraggable = value;
-    state.isResizable = value;
+    state.isLock = value;
   },
   setLatout(state, name) {
     state.layout.push({

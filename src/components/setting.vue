@@ -1,18 +1,7 @@
 <template>
   <div class="setting">
-    <a-button
-      size="small"
-      shape="circle"
-      icon="plus"
-      @click="() => visible = true"
-      v-show="this.$store.state.layout.isDraggable&&this.$store.state.layout.isResizable"
-    ></a-button>
-    <a-button
-      size="small"
-      shape="circle"
-      icon="lock"
-      @click="isLock(!this.$store.state.layout.isDraggable)"
-    ></a-button>
+    <a-button size="small" shape="circle" icon="plus" @click="() => visible = true" v-show="isLock"></a-button>
+    <a-button size="small" shape="circle" :icon="isLock?'unlock':'lock'" @click="setLock()"></a-button>
     <a-modal
       title="添加小部件"
       centered
@@ -37,19 +26,10 @@
   </div>
 </template>
 
-<style lang="less" scoped>
-.setting {
-  position: fixed;
-  top: 10px;
-  right: 30px;
-  z-index: 1;
-}
-</style>
-
-
 <script>
-import { mapMutations } from "vuex";
+import { mapState } from "vuex";
 export default {
+  computed: mapState({ isLock: state => state.layout.isLock }),
   data() {
     return {
       visible: false,
@@ -59,9 +39,10 @@ export default {
     };
   },
   methods: {
-    ...mapMutations({
-      isLock: "setLock"
-    }),
+    setLock() {
+      this.$store.commit("layout/setLock", !this.isLock);
+      this.$message.success(this.isLock ? "编辑已解锁" : "编辑已锁定");
+    },
     filterOption(input, option) {
       return (
         option.componentOptions.children[0].text
@@ -78,9 +59,18 @@ export default {
       }
     },
     add: function() {
-      this.$store.commit("setLatout", this.selectItem);
+      this.$store.commit("layout/setLatout", this.selectItem);
       this.visible = false;
     }
   }
 };
 </script>
+
+<style lang="less" scoped>
+.setting {
+  position: fixed;
+  top: 10px;
+  right: 30px;
+  z-index: 1;
+}
+</style>

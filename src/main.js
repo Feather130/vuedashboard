@@ -3,7 +3,7 @@ import App from './App.vue';
 import store from './store';
 import './autoImport';
 import { Modal, Button, Select, message } from 'ant-design-vue';
-import { inventory } from './api/inventory';
+import { inventory } from './api';
 
 Vue.config.productionTip = false;
 Vue.use(Modal);

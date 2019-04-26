@@ -27,7 +27,7 @@ export default {
               "dashboard!name!home": {}
             })
             .then(detail => {
-              this.$store.commit("setDashboardId", detail.id);
+              this.$store.commit("layout/setDashboardId", detail.id);
             });
         } else {
           this.$store.commit(
