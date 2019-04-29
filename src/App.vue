@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <setting/>
-    <!-- <layout/> -->
+    <layout/>
   </div>
 </template>
 
 <script>
 import setting from "./components/setting";
-// import layout from "./components/layout";
+import layout from "./components/layout";
 
 export default {
   name: "app",
   components: {
     setting,
-    // layout
+    layout
   },
   mounted() {
     this.$inventory
@@ -34,19 +34,16 @@ export default {
             "layout/setDashboardId",
             list.managedObjects[0].id
           );
+          if (list.managedObjects[0].dashLayout) {
+            this.$store.commit(
+              "layout/updateLayout",
+              list.managedObjects[0].dashLayout
+            );
+          }
         }
       });
   },
-  methods: {
-    // isLock: function(val) {
-      // this.$store.commit("setLock", detail.id);
-    // this.isDraggable = val.isDraggable;
-    // this.isResizable = val.isResizable;
-    // this.$message.success(
-    //   val.isResizable && val.isDraggable ? "编辑已解锁" : "编辑已锁定"
-    // );
-    // }
-  }
+  methods: {}
 };
 </script>
 

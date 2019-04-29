@@ -1,19 +1,8 @@
 <template>
   <div class="gridComponent">
     <div class="setting">
-      <a-button
-        size="small"
-        shape="circle"
-        icon="close"
-        @click="close"
-        v-show="this.$store.state.layout.isDraggable&&this.$store.state.layout.isResizable"
-      ></a-button>
-      <a-button
-        size="small"
-        shape="circle"
-        icon="setting"
-        v-show="this.$store.state.layout.isDraggable&&this.$store.state.layout.isResizable"
-      ></a-button>
+      <a-button size="small" shape="circle" icon="close" @click="close()" v-if="isLock"></a-button>
+      <a-button size="small" shape="circle" icon="setting" v-if="isLock"></a-button>
     </div>
     <component :is="layout.name" :isConfig="isConfig"></component>
   </div>
@@ -30,12 +19,15 @@
 </style>
 
 <script>
+import { mapState } from "vuex";
 export default {
+  computed: mapState({
+    isLock: state => state.layout.isLock,
+    isUpdate: state => state.layout.isUpdate
+  }),
   props: {
     layout: Object,
-    index: Number,
-    // isDraggable: Boolean,
-    // isResizable: Boolean
+    index: Number
   },
   data() {
     return {
@@ -44,7 +36,10 @@ export default {
   },
   methods: {
     close: function() {
-      this.$emit("close", this.index);
+      if (!this.isUpdate) {
+        this.$store.commit("layout/setUpdate", true);
+      }
+      this.$store.commit("layout/removeLayout", this.index);
     }
   }
 };

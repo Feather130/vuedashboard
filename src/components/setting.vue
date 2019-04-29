@@ -1,12 +1,14 @@
 <template>
   <div class="setting">
-    <a-button size="small" shape="circle" icon="plus" @click="() => visible = true" v-show="isLock"></a-button>
+    <a-button size="small" shape="circle" icon="save" @click="save()" v-if="isLock&&isUpdate"></a-button>
+    <a-button size="small" shape="circle" icon="plus" @click="() => visible = true" v-if="isLock"></a-button>
     <a-button size="small" shape="circle" :icon="isLock?'unlock':'lock'" @click="setLock()"></a-button>
     <a-modal
       title="添加小部件"
       centered
       v-model="visible"
       @ok="add"
+      @cancel="cancel"
       :destroyOnClose="true"
       :maskClosable="false"
       :okButtonProps="{ props: {disabled: selectItem===null?true:false} }"
@@ -29,7 +31,12 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  computed: mapState({ isLock: state => state.layout.isLock }),
+  computed: mapState({
+    isLock: state => state.layout.isLock,
+    isUpdate: state => state.layout.isUpdate,
+    dashboardId: state => state.layout.dashboardId,
+    layout: state => state.layout.layout
+  }),
   data() {
     return {
       visible: false,
@@ -59,8 +66,24 @@ export default {
       }
     },
     add: function() {
-      this.$store.commit("layout/setLatout", this.selectItem);
+      if (!this.isUpdate) {
+        this.$store.commit("layout/setUpdate", true);
+      }
+      this.$store.commit("layout/addLayout", this.selectItem);
       this.visible = false;
+      this.selectItem = null;
+      this.configSelect = null;
+    },
+    cancel: function() {
+      this.selectItem = null;
+      this.configSelect = null;
+    },
+    save: function() {
+      this.$store.commit("layout/setUpdate", false);
+      this.$inventory.update({
+        id: this.dashboardId,
+        dashLayout: this.layout
+      });
     }
   }
 };
