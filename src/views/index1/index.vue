@@ -11,11 +11,7 @@
 </style>
 
 <script>
-import config from "./config";
 export default {
   name: "index1",
-  components: {
-    config
-  }
 };
 </script>
