@@ -8,8 +8,8 @@
       @click="() => visible = true"
       v-if="isLock"
     ></a-button>
-    <a-button size="small" shape="circle" :icon="isLock?'unlock':'lock'" @click="setLock()"></a-button>
-    <add-grid :visible="visible" @closeAddGrid="setVisible()"/>
+    <a-button size="small" shape="circle" :icon="isLock?'unlock':'lock'" @click="setLock"></a-button>
+    <add-grid :visible="visible" @closeAddGrid="setVisible"/>
   </div>
 </template>
 

@@ -2,7 +2,7 @@ const state = {
   layout: [],
   isLock: true,
   dashboardId: null,
-  isUpdate: false,
+  isUpdate: false
 };
 
 const mutations = {
@@ -15,14 +15,14 @@ const mutations = {
   setUpdate(state, value) {
     state.isUpdate = value;
   },
-  addLayout(state, name) {
+  addLayout(state, obj) {
     state.layout.push({
       x: 0,
       y: 0,
-      w: 10,
-      h: 2,
+      w: obj.width,
+      h: obj.height,
       i: state.layout.length + 1,
-      name,
+      name: obj.name
     });
   },
   updateLayout(state, array) {
@@ -30,7 +30,7 @@ const mutations = {
   },
   removeLayout(state, index) {
     state.layout.splice(index, 1);
-  },
+  }
 };
 
 export default {
