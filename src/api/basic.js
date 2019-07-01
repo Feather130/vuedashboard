@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios from 'axios';
 
 axios.interceptors.request.use(
-  config => {
+  (config) => {
     config.data = JSON.stringify(config.data);
-    config.headers["Authorization"] =
-      "Basic c3VueXVtaW5nL3N1bnl1bWluZzoxMjM0NTY3OA==";
+    config.headers['Authorization'] =
+      'Basic c3VueXVtaW5nL3N1bnl1bWluZzoxMjM0NTY3OA==';
     return config;
   },
-  error => {
+  (error) => {
     return Promise.reject(error);
   }
 );
@@ -16,12 +16,12 @@ function get(url, params = {}) {
   return new Promise((resolve, reject) => {
     axios
       .get(url, {
-        params: params
+        params: params,
       })
-      .then(response => {
+      .then((response) => {
         resolve(response.data);
       })
-      .catch(err => {
+      .catch((err) => {
         reject(err);
       });
   });
@@ -30,10 +30,10 @@ function get(url, params = {}) {
 function post(url, data = {}, config = {}) {
   return new Promise((resolve, reject) => {
     axios.post(url, data, config).then(
-      response => {
+      (response) => {
         resolve(response.data);
       },
-      err => {
+      (err) => {
         reject(err);
       }
     );
@@ -43,18 +43,16 @@ function post(url, data = {}, config = {}) {
 function put(url, data = {}, config = {}) {
   return new Promise((resolve, reject) => {
     axios.put(url, data, config).then(
-      response => {
+      (response) => {
         resolve(response.data);
       },
-      err => {
+      (err) => {
         reject(err);
       }
     );
   });
 }
 
-export {
-    get,
-    post,
-    put
-}
+let NAMESPACE = 'application/vnd.com.nsn.cumulocity.';
+
+export { get, post, put, NAMESPACE };

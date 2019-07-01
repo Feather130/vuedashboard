@@ -1,7 +1,12 @@
 <template>
-  <div class="index0">
-  </div>
+  <div class="index0"></div>
 </template>
+
+<script>
+export default {
+  name: "index0"
+};
+</script>
 
 <style lang="less" scoped>
 .index0 {
@@ -11,8 +16,4 @@
 }
 </style>
 
-<script>
-export default {
-  name: "index0"
-};
-</script>
+

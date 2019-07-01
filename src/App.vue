@@ -6,14 +6,14 @@
 </template>
 
 <script>
-import setting from "./components/setting";
-import layout from "./components/layout";
+import Setting from "./components/Setting";
+import Layout from "./components/Layout";
 
 export default {
   name: "app",
   components: {
-    setting,
-    layout
+    Setting,
+    Layout
   },
   mounted() {
     this.$inventory

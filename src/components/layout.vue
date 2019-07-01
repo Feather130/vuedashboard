@@ -24,7 +24,7 @@
       :maxH="item.maxH"
       :key="item.i"
     >
-      <gridComponent :layout="item" :index="index"/>
+      <grid-component :layout="item" :index="index"/>
     </grid-item>
   </grid-layout>
 </template>
@@ -32,17 +32,13 @@
 <script>
 import { mapState } from "vuex";
 import VueGridLayout from "vue-grid-layout";
-import gridComponent from "./gridComponent";
+import GridComponent from "./GridComponent";
 export default {
-  computed: mapState({
-    layout: state => state.layout.layout,
-    isLock: state => state.layout.isLock,
-    isUpdate: state => state.layout.isUpdate
-  }),
+  computed: { ...mapState("layout", ["layout", "isLock", "isUpdate"]) },
   components: {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
-    gridComponent
+    GridComponent
   },
   methods: {
     layoutUpdatedEvent: function(newLayout) {

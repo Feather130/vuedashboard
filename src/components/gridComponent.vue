@@ -4,7 +4,7 @@
       <a-button size="small" shape="circle" icon="close" @click="close()" v-if="isLock"></a-button>
       <a-button size="small" shape="circle" icon="setting" v-if="isLock"></a-button>
     </div>
-    <component :is="layout.name" :isConfig="isConfig"></component>
+    <component :is="layout.name"></component>
   </div>
 </template>
 
@@ -21,18 +21,12 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  computed: mapState({
-    isLock: state => state.layout.isLock,
-    isUpdate: state => state.layout.isUpdate
-  }),
+  computed: {
+    ...mapState("layout", ["isLock", "isUpdate"])
+  },
   props: {
     layout: Object,
     index: Number
-  },
-  data() {
-    return {
-      isConfig: false
-    };
   },
   methods: {
     close: function() {

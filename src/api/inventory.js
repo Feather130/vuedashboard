@@ -1,7 +1,6 @@
-import { get, post, put } from './basic';
+import { get, post, put, NAMESPACE } from './basic';
 
 let path = '/inventory/managedObjects';
-let NAMESPACE = 'application/vnd.com.nsn.cumulocity.';
 let config = {
   headers: {
     'Content-Type': `${NAMESPACE}managedObject+json`,
