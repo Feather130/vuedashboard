@@ -1,10 +1,18 @@
 <template>
-  <div class="index0"></div>
+  <div class="index0">
+    {{layout.config.value}}
+  </div>
 </template>
 
 <script>
 export default {
-  name: "index0"
+  name: "index0",
+  props:{
+    layout:Object
+  },
+  methods:{
+    
+  }
 };
 </script>
 

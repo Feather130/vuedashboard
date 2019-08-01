@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <setting/>
-    <layout/>
+    <setting />
+    <layout />
   </div>
 </template>
 
@@ -16,32 +16,32 @@ export default {
     Layout
   },
   mounted() {
-    this.$inventory
-      .list({
+    this.checkHasDashboard();
+  },
+  methods: {
+    async checkHasDashboard() {
+      let list = await this.$inventory.list({
         fragmentType: "dashboard!name!home"
-      })
-      .then(list => {
-        if (list.managedObjects.length === 0) {
-          return this.$inventory
-            .create({
-              "dashboard!name!home": {}
-            })
-            .then(detail => {
-              this.$store.commit("layout/setDashboardId", detail.id);
-            });
-        } else {
-          this.$store.commit(
-            "layout/setDashboardId",
-            list.managedObjects[0].id
-          );
-          if (list.managedObjects[0].dashLayout) {
-            this.$store.commit(
-              "layout/updateLayout",
-              list.managedObjects[0].dashLayout
-            );
-          }
-        }
       });
+      if (list.managedObjects.length === 0) {
+        let detail = await this.createDashboard();
+        this.$store.commit("layout/setDashboardId", detail.id);
+      } else {
+        this.$store.commit("layout/setDashboardId", list.managedObjects[0].id);
+        if (list.managedObjects[0].dashLayout) {
+          this.$store.commit(
+            "layout/updateLayout",
+            list.managedObjects[0].dashLayout
+          );
+        }
+      }
+    },
+    async createDashboard() {
+      let data = await this.$inventory.create({
+        "dashboard!name!home": {}
+      });
+      return data;
+    }
   }
 };
 </script>

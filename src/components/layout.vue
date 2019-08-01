@@ -24,17 +24,19 @@
       :maxH="item.maxH"
       :key="item.i"
     >
-      <grid-component :layout="item" :index="index"/>
+      <grid-component :index="index" />
     </grid-item>
   </grid-layout>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import VueGridLayout from "vue-grid-layout";
 import GridComponent from "./GridComponent";
 export default {
-  computed: { ...mapState("layout", ["layout", "isLock", "isUpdate"]) },
+  computed: {
+    ...mapState("layout", ["layout", "isLock", "isUpdate"]),
+  },
   components: {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
@@ -50,7 +52,9 @@ export default {
           w: item.w,
           h: item.h,
           i: item.i,
-          name: item.name
+          name: item.name,
+          config: item.config,
+          setting: item.setting
         };
       });
       this.$store.commit("layout/updateLayout", updateLayout);

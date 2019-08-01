@@ -1,11 +1,11 @@
-import { get, post, put, NAMESPACE } from './basic';
+import { get, post, put, NAMESPACE } from "./basic";
 
-let path = '/inventory/managedObjects';
+let path = "/inventory/managedObjects";
 let config = {
   headers: {
-    'Content-Type': `${NAMESPACE}managedObject+json`,
-    Accept: `${NAMESPACE}managedObject+json`,
-  },
+    "Content-Type": `${NAMESPACE}managedObject+json`,
+    Accept: `${NAMESPACE}managedObject+json`
+  }
 };
 
 function buildDetailUrl(mo) {
@@ -32,7 +32,7 @@ function update(mo) {
 let inventory = {
   list,
   create,
-  update,
+  update
 };
 
 export default inventory;

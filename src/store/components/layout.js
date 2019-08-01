@@ -22,7 +22,21 @@ const mutations = {
       w: obj.width,
       h: obj.height,
       i: state.layout.length + 1,
-      name: obj.name
+      name: obj.name,
+      config: obj.config,
+      setting: obj.setting
+    });
+  },
+  putLayout(state, obj) {
+    state.layout.splice(obj.index, 1, {
+      x: obj.x,
+      y: obj.y,
+      w: obj.w,
+      h: obj.h,
+      i: obj.i,
+      name: obj.name,
+      config: obj.config,
+      setting: obj.setting
     });
   },
   updateLayout(state, array) {
